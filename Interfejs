@@ -1,6 +1,6 @@
 package kalkulator;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -150,7 +150,7 @@ public class Kalkularor extends JFrame {
 		}
 	}
 
-	public static void pobierzDane(JTextField textField_Adres_Sieci, JTextField textField_Maska_Sieci,
+	private static void pobierzDane(JTextField textField_Adres_Sieci, JTextField textField_Maska_Sieci,
 			JTextField textField_Liczba_Podsieci, JTextField textField_Liczba_Hostow,
 			JTextField textField_Procent_Wolnych) {
 
@@ -161,12 +161,16 @@ public class Kalkularor extends JFrame {
 		String liczba_hostow = textField_Liczba_Hostow.getText();
 		String procent_wolnych_hostow = textField_Procent_Wolnych.getText();
 
-		System.out.println(pobierzLiczbyZeStringa(adres_sieci));
-		System.out.println(pobierzLiczbyZeStringa(maska_sieci));
-		System.out.println(Integer.parseInt(liczba_podsieci));
-		System.out.println(Integer.parseInt(liczba_hostow));
-		System.out.println(Integer.parseInt(procent_wolnych_hostow));
-
+		List<Integer> adres_sieci_pobrany = pobierzLiczbyZeStringa(adres_sieci);
+		System.out.println(adres_sieci_pobrany);
+		List<Integer> maska_sieci_pobrana = pobierzLiczbyZeStringa(maska_sieci);
+		System.out.println(maska_sieci_pobrana);
+		int liczba_podsieci_pobrana = Integer.parseInt(liczba_podsieci);
+		System.out.println(liczba_podsieci_pobrana);
+		int liczba_hostow_pobrana = Integer.parseInt(liczba_hostow);
+		System.out.println(liczba_hostow_pobrana);
+		int procent_wolnych_hostow_pobrane = Integer.parseInt(procent_wolnych_hostow);
+		System.out.println(procent_wolnych_hostow_pobrane);
 	}
 
 	private static List<Integer> pobierzLiczbyZeStringa(String s) {
@@ -183,4 +187,11 @@ public class Kalkularor extends JFrame {
 		}
 		return l;
 	}
+
+	private static Integer liczLiczbeHostow(List<Integer> lista) {
+
+		return null;
+
+	}
+
 }
