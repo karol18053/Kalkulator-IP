@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -19,11 +22,11 @@ public class Kalkularor extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_Adres_Sieci;
-	private JTextField textField_Maska_Sieci;
-	private JTextField textField_Liczba_Podsieci;
-	private JTextField textField_Liczba_Hostow;
-	private JTextField textField_Procent_Wolnych;
+	private static JTextField textField_Adres_Sieci;
+	private static JTextField textField_Maska_Sieci;
+	private static JTextField textField_Liczba_Podsieci;
+	private static JTextField textField_Liczba_Hostow;
+	private static JTextField textField_Procent_Wolnych;
 
 	/**
 	 * Launch the application.
@@ -37,6 +40,7 @@ public class Kalkularor extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
@@ -85,6 +89,8 @@ public class Kalkularor extends JFrame {
 		JButton btnOblicz = new JButton("Oblicz");
 		btnOblicz.setBounds(10, 290, 89, 23);
 		contentPane.add(btnOblicz);
+		btnOblicz.addActionListener(new PrzyciskListenerOblicz());
+		//return btnOblicz;
 		
 		textField_Adres_Sieci = new JTextField();
 		textField_Adres_Sieci.setBounds(113, 109, 136, 20);
@@ -132,7 +138,33 @@ public class Kalkularor extends JFrame {
 		contentPane.add(lblWolneAdresy);
 	}
 	
-	public void pobierzDane(String adres, String maska, String liczba_podsieci, String liczba_hostow, String procent_wolnych_adresow){
+	private class PrzyciskListenerOblicz implements ActionListener {
+
+		public void actionPerformed(ActionEvent event) {
+			
+			pobierzDane(textField_Adres_Sieci, textField_Maska_Sieci, textField_Liczba_Podsieci, textField_Liczba_Hostow, textField_Procent_Wolnych);
+			
+		}
+	}
+	
+	public static void pobierzDane(JTextField textField_Adres_Sieci, JTextField textField_Maska_Sieci, JTextField textField_Liczba_Podsieci, 
+			JTextField textField_Liczba_Hostow, JTextField textField_Procent_Wolnych){
+		
+		System.out.println("witaj");
+		
+		//int adres_sieci = Integer.parseInt(textField_Adres_Sieci2.getText());
+		String adres_sieci = textField_Adres_Sieci.getText();
+		String maska_sieci = textField_Maska_Sieci.getText();
+		String liczba_podsieci = textField_Liczba_Podsieci.getText();
+		String liczba_hostow = textField_Liczba_Hostow.getText();
+		String procent_wolnych_hostow = textField_Procent_Wolnych.getText();
+		
+		
+		System.out.println(adres_sieci);
+		System.out.println(maska_sieci);
+		System.out.println(liczba_podsieci);
+		System.out.println(liczba_hostow);
+		System.out.println(procent_wolnych_hostow);
 		
 	}
 }
