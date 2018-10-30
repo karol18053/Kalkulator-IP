@@ -161,15 +161,15 @@ public class Kalkularor extends JFrame {
 		String liczba_hostow = textField_Liczba_Hostow.getText();
 		String procent_wolnych_hostow = textField_Procent_Wolnych.getText();
 
-		System.out.println(pobierzLiczby(adres_sieci));
-		System.out.println(pobierzLiczby(maska_sieci));
+		System.out.println(pobierzLiczbyZeStringa(adres_sieci));
+		System.out.println(pobierzLiczbyZeStringa(maska_sieci));
 		System.out.println(Integer.parseInt(liczba_podsieci));
 		System.out.println(Integer.parseInt(liczba_hostow));
 		System.out.println(Integer.parseInt(procent_wolnych_hostow));
 
 	}
 
-	private static List<Integer> pobierzLiczby(String s) {
+	private static List<Integer> pobierzLiczbyZeStringa(String s) {
 		List<Integer> l = new ArrayList<Integer>();
 		char[] liczby = s.toCharArray();
 		for (int i = 0; i < liczby.length; i++) {
