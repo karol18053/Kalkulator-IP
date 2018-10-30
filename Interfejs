@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -40,7 +42,7 @@ public class Kalkularor extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
@@ -60,111 +62,125 @@ public class Kalkularor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setComponentOrientation(null);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblKalkulatorIp = new JLabel("Kalkulator IP");
 		lblKalkulatorIp.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblKalkulatorIp.setBounds(10, 11, 136, 49);
 		contentPane.add(lblKalkulatorIp);
-		
+
 		JLabel lblPdajAdresSieci = new JLabel("Pdaj adres sieci: ");
 		lblPdajAdresSieci.setBounds(10, 103, 102, 35);
 		contentPane.add(lblPdajAdresSieci);
-		
+
 		JLabel lblMaskaSieci = new JLabel("Maska sieci:");
 		lblMaskaSieci.setBounds(10, 136, 77, 35);
 		contentPane.add(lblMaskaSieci);
-		
+
 		JLabel lblLiczbaPodsieci = new JLabel("Liczba podsieci:");
 		lblLiczbaPodsieci.setBounds(10, 166, 102, 28);
 		contentPane.add(lblLiczbaPodsieci);
-		
+
 		JLabel lblLiczbaHostw = new JLabel("Liczba host\u00F3w*:");
 		lblLiczbaHostw.setBounds(10, 196, 102, 35);
 		contentPane.add(lblLiczbaHostw);
-		
+
 		JLabel lblopcjonalnie = new JLabel("* pola opcjonalne. Reszta p\u00F3l jest obowi\u0105zkowa. ");
 		lblopcjonalnie.setBounds(10, 583, 299, 35);
 		contentPane.add(lblopcjonalnie);
-		
+
 		JButton btnOblicz = new JButton("Oblicz");
 		btnOblicz.setBounds(10, 290, 89, 23);
 		contentPane.add(btnOblicz);
 		btnOblicz.addActionListener(new PrzyciskListenerOblicz());
-		//return btnOblicz;
-		
+		// return btnOblicz;
+
 		textField_Adres_Sieci = new JTextField();
 		textField_Adres_Sieci.setBounds(113, 109, 136, 20);
 		contentPane.add(textField_Adres_Sieci);
 		textField_Adres_Sieci.setColumns(10);
-		
+
 		textField_Maska_Sieci = new JTextField();
 		textField_Maska_Sieci.setBounds(113, 142, 136, 20);
 		contentPane.add(textField_Maska_Sieci);
 		textField_Maska_Sieci.setColumns(10);
-		
+
 		textField_Liczba_Podsieci = new JTextField();
 		textField_Liczba_Podsieci.setBounds(113, 172, 86, 20);
 		contentPane.add(textField_Liczba_Podsieci);
 		textField_Liczba_Podsieci.setColumns(10);
-		
+
 		textField_Liczba_Hostow = new JTextField();
 		textField_Liczba_Hostow.setBounds(113, 202, 86, 20);
 		contentPane.add(textField_Liczba_Hostow);
 		textField_Liczba_Hostow.setColumns(10);
-		
+
 		textField_Procent_Wolnych = new JTextField();
 		textField_Procent_Wolnych.setBounds(175, 232, 75, 20);
 		contentPane.add(textField_Procent_Wolnych);
 		textField_Procent_Wolnych.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("Procent wolnych adres\u00F3w*:");
 		lblNewLabel.setBounds(10, 226, 156, 28);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblAdresyPodsieci = new JLabel("Adresy podsieci:");
 		lblAdresyPodsieci.setBounds(300, 103, 102, 28);
 		contentPane.add(lblAdresyPodsieci);
-		
+
 		JLabel lblMakaNowejSieci = new JLabel("Maka nowej sieci:");
 		lblMakaNowejSieci.setBounds(300, 136, 108, 28);
 		contentPane.add(lblMakaNowejSieci);
-		
+
 		JLabel lblAdresyHostw = new JLabel("Adresy host\u00F3w:");
 		lblAdresyHostw.setBounds(300, 166, 108, 29);
 		contentPane.add(lblAdresyHostw);
-		
+
 		JLabel lblWolneAdresy = new JLabel("Wolne adresy:");
 		lblWolneAdresy.setBounds(300, 226, 102, 26);
 		contentPane.add(lblWolneAdresy);
 	}
-	
+
 	private class PrzyciskListenerOblicz implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			
-			pobierzDane(textField_Adres_Sieci, textField_Maska_Sieci, textField_Liczba_Podsieci, textField_Liczba_Hostow, textField_Procent_Wolnych);
-			
+
+			pobierzDane(textField_Adres_Sieci, textField_Maska_Sieci, textField_Liczba_Podsieci,
+					textField_Liczba_Hostow, textField_Procent_Wolnych);
+
 		}
 	}
-	
-	public static void pobierzDane(JTextField textField_Adres_Sieci, JTextField textField_Maska_Sieci, JTextField textField_Liczba_Podsieci, 
-			JTextField textField_Liczba_Hostow, JTextField textField_Procent_Wolnych){
-		
-		System.out.println("witaj");
-		
-		//int adres_sieci = Integer.parseInt(textField_Adres_Sieci2.getText());
+
+	public static void pobierzDane(JTextField textField_Adres_Sieci, JTextField textField_Maska_Sieci,
+			JTextField textField_Liczba_Podsieci, JTextField textField_Liczba_Hostow,
+			JTextField textField_Procent_Wolnych) {
+
+		// int adres_sieci = Integer.parseInt(textField_Adres_Sieci2.getText());
 		String adres_sieci = textField_Adres_Sieci.getText();
 		String maska_sieci = textField_Maska_Sieci.getText();
 		String liczba_podsieci = textField_Liczba_Podsieci.getText();
 		String liczba_hostow = textField_Liczba_Hostow.getText();
 		String procent_wolnych_hostow = textField_Procent_Wolnych.getText();
-		
-		
-		System.out.println(adres_sieci);
-		System.out.println(maska_sieci);
-		System.out.println(liczba_podsieci);
-		System.out.println(liczba_hostow);
-		System.out.println(procent_wolnych_hostow);
-		
+
+		System.out.println(pobierzLiczby(adres_sieci));
+		System.out.println(pobierzLiczby(maska_sieci));
+		System.out.println(Integer.parseInt(liczba_podsieci));
+		System.out.println(Integer.parseInt(liczba_hostow));
+		System.out.println(Integer.parseInt(procent_wolnych_hostow));
+
+	}
+
+	private static List<Integer> pobierzLiczby(String s) {
+		List<Integer> l = new ArrayList<Integer>();
+		char[] liczby = s.toCharArray();
+		for (int i = 0; i < liczby.length; i++) {
+			if (Character.isDigit(liczby[i])) {
+				String num = "";
+				while (i < liczby.length && Character.isDigit(liczby[i])) {
+					num += liczby[i++];
+				}
+				l.add(Integer.parseInt(num));
+			}
+		}
+		return l;
 	}
 }
