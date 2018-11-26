@@ -28,11 +28,13 @@ public class Kalkulator extends JPanel {
 	private JComponent panel3 = makePanel();
 	public static JFrame frame = new JFrame("Kalkulator IP opracowali: K. Cie\u017C & B. Cholewa");
 	public Color kolor = Color.GRAY;
-
+//zakładka 1
 	private static JTextField textField_Adres_Sieci_Pelne;
 	private static JTextField textField_Maska_Sieci_Pelne;
 	private static JTextField textField_Liczba_Hostow_Pelne;
-
+//zakładka 2	
+	
+//zakładka3
 	private static JTextField textField_Adres_Sieci;
 	private static JTextField textField_Maska_Sieci;
 	private static JTextField textField_Liczba_Podsieci;
