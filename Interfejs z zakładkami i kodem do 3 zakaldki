@@ -1,0 +1,447 @@
+package zakladki;
+
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class Kalkulator extends JPanel {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JComponent panel1 = makePanel();
+	private JComponent panel2 = makePanel();
+	private JComponent panel3 = makePanel();
+	public static JFrame frame = new JFrame("Kalkulator IP opracowali: K. Cie\u017C & B. Cholewa");
+	public Color kolor = Color.GRAY;
+	
+	private static JTextField textField_Adres_Sieci;
+	private static JTextField textField_Maska_Sieci;
+	private static JTextField textField_Liczba_Podsieci;
+	private static JTextField textField_Liczba_Hostow1;
+	private static JTextField textField_Liczba_Hostow2;
+	private static JTextField textField_Liczba_Hostow3;
+	private static JTextField textField_Liczba_Hostow4;
+	private static JTextField textField_Liczba_Hostow5;
+	
+	private static JTextField textField_Procent_Wolnych;
+	
+	static List<Integer> liczba_hostow_wymagana = new ArrayList<Integer>(20);
+
+public Kalkulator() {
+    super(new GridLayout(1, 1));
+
+    JTabbedPane tabbedPane = new JTabbedPane();
+        
+    panel1.setPreferredSize(new Dimension(1024, 674));// zakładka 1
+	panel1.setBackground(kolor);
+	tabbedPane.addTab("1.Podejście z pełnymi sieciami", null, panel1, "Sieci są możliwie pełne, nie ma wolnych adersów");
+	panel1.setLayout(null);
+	
+
+	
+	///////////////////////////////
+	panel2.setPreferredSize(new Dimension(1024, 674));// zakładka 1
+	panel2.setBackground(kolor);
+	tabbedPane.addTab("2.Podejście z wolnymi adresami", null, panel2, "Zostają wolne adresy w wyliczonej sieci ");
+	panel2.setLayout(null);
+	
+	///////////////////////////////
+	
+	//Twój kod
+	
+
+	///////////////////////////////
+	panel3.setPreferredSize(new Dimension(1024, 674));// zakładka 1
+	panel3.setBackground(kolor);
+	tabbedPane.addTab("3.Podejście architekta", null, panel3, "Projektowanie sieci");
+	panel3.setLayout(null);
+	
+	////////////////////////////////
+	
+	JLabel lblKalkulatorIp = new JLabel("Kalkulator IP");
+	lblKalkulatorIp.setFont(new Font("Tahoma", Font.BOLD, 18));
+	lblKalkulatorIp.setBounds(10, 11, 136, 49);
+	panel3.add(lblKalkulatorIp);
+
+	JLabel lblPdajAdresSieci = new JLabel("Pdaj adres sieci: ");
+	lblPdajAdresSieci.setBounds(10, 103, 102, 35);
+	panel3.add(lblPdajAdresSieci);
+
+	JLabel lblMaskaSieci = new JLabel("Maska sieci:");
+	lblMaskaSieci.setBounds(10, 136, 77, 35);
+	panel3.add(lblMaskaSieci);
+
+	JLabel lblLiczbaPodsieci = new JLabel("Liczba podsieci:");
+	lblLiczbaPodsieci.setBounds(10, 166, 102, 28);
+	panel3.add(lblLiczbaPodsieci);
+
+	JLabel lblLiczbaHostw = new JLabel("Liczba host\u00F3w:");
+	lblLiczbaHostw.setBounds(10, 196, 102, 35);
+	panel3.add(lblLiczbaHostw);
+
+//	JLabel lblopcjonalnie = new JLabel("* pola opcjonalne. Reszta p\u00F3l jest obowi\u0105zkowa. ");
+//	lblopcjonalnie.setBounds(10, 583, 299, 35);
+//	panel3.add(lblopcjonalnie);
+
+	JButton btnOblicz = new JButton("Oblicz");
+	btnOblicz.setBounds(10, 290, 89, 23);
+	panel3.add(btnOblicz);
+	btnOblicz.addActionListener(new PrzyciskListenerOblicz());
+	// return btnOblicz;
+
+	textField_Adres_Sieci = new JTextField();
+	textField_Adres_Sieci.setBounds(113, 109, 136, 20);
+	panel3.add(textField_Adres_Sieci);
+	textField_Adres_Sieci.setColumns(10);
+
+	textField_Maska_Sieci = new JTextField();
+	textField_Maska_Sieci.setBounds(113, 142, 136, 20);
+	panel3.add(textField_Maska_Sieci);
+	textField_Maska_Sieci.setColumns(10);
+
+	textField_Liczba_Podsieci = new JTextField();
+	textField_Liczba_Podsieci.setBounds(113, 172, 86, 20);
+	panel3.add(textField_Liczba_Podsieci);
+	textField_Liczba_Podsieci.setColumns(10);
+
+	textField_Liczba_Hostow1 = new JTextField();
+	textField_Liczba_Hostow1.setBounds(113, 202, 30, 20);
+	panel3.add(textField_Liczba_Hostow1);
+	textField_Liczba_Hostow1.setColumns(10);
+	
+	textField_Liczba_Hostow2 = new JTextField();
+	textField_Liczba_Hostow2.setBounds(150, 202, 30, 20);
+	panel3.add(textField_Liczba_Hostow2);
+	textField_Liczba_Hostow2.setColumns(10);
+	
+	textField_Liczba_Hostow3 = new JTextField();
+	textField_Liczba_Hostow3.setBounds(187, 202, 30, 20);
+	panel3.add(textField_Liczba_Hostow3);
+	textField_Liczba_Hostow3.setColumns(10);
+	
+	textField_Liczba_Hostow4 = new JTextField();
+	textField_Liczba_Hostow4.setBounds(224, 202, 30, 20);
+	panel3.add(textField_Liczba_Hostow4);
+	textField_Liczba_Hostow4.setColumns(10);
+	
+	textField_Liczba_Hostow5 = new JTextField();
+	textField_Liczba_Hostow5.setBounds(260, 202, 30, 20);
+	panel3.add(textField_Liczba_Hostow5);
+	textField_Liczba_Hostow5.setColumns(10);
+	
+
+	textField_Procent_Wolnych = new JTextField();
+	textField_Procent_Wolnych.setBounds(175, 232, 75, 20);
+	panel3.add(textField_Procent_Wolnych);
+	textField_Procent_Wolnych.setColumns(10);
+
+	////////////////////////////////
+
+    //Add the tabbed pane to this panel.
+    add(tabbedPane);
+
+  }
+
+
+
+  public static void main(String[] args) {
+
+    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+       GUI();
+      }
+    });
+  }
+  
+  protected JComponent makePanel() {
+	    JPanel panel = new JPanel(false);
+	   
+	    panel.setLayout(new GridLayout(1, 1));
+	    
+	    return panel;
+	  }
+
+	  private static void GUI() {
+	    //Make sure we have nice window decorations.
+	    //JFrame.setDefaultLookAndFeelDecorated(true);
+
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(0, 0, 1024, 734);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+
+	    //Create and set up the content pane.
+	    JComponent newContentPane = new Kalkulator();
+	    newContentPane.setOpaque(true); //content panes must be opaque
+	    frame.getContentPane().add(new Kalkulator(), BorderLayout.CENTER);
+
+	    //Display the window.
+	    frame.pack();
+	    frame.setVisible(true);
+	  }
+  
+		private class PrzyciskListenerOblicz implements ActionListener {
+
+			public void actionPerformed(ActionEvent event) {
+				
+				int liczba_sieci_wymagana = Integer.parseInt(textField_Liczba_Podsieci.getText());
+				//int liczba_sieci_wymagana = 1;
+				float procet = Integer.parseInt(textField_Procent_Wolnych.getText());
+
+					liczba_hostow_wymagana.add(Integer.parseInt(textField_Liczba_Hostow1.getText()));
+					liczba_hostow_wymagana.add(Integer.parseInt(textField_Liczba_Hostow2.getText()));
+					liczba_hostow_wymagana.add(Integer.parseInt(textField_Liczba_Hostow3.getText()));
+					liczba_hostow_wymagana.add(Integer.parseInt(textField_Liczba_Hostow4.getText()));
+					liczba_hostow_wymagana.add(Integer.parseInt(textField_Liczba_Hostow5.getText()));
+					
+					System.out.println("Podaj liczbę hostów w podsieci: " +liczba_hostow_wymagana+procet);
+
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci_wymagana, procet, 0, 0);
+				
+				String s = Licz_hosty(liczba_hostow_wymagana, liczba_sieci_wymagana, procet, 0, 0);
+				
+				JLabel dane = new JLabel(s);
+				dane.setFont(new Font("Tahoma", Font.PLAIN, 30));
+				dane.setBounds(193, 150, 316, 58);
+				panel3.add(dane);
+
+			}
+		}
+		
+		private static Integer pobierzLiczbyZeStringa(String s, int licznik) {
+			List<Integer> l = new ArrayList<Integer>();
+			char[] liczby = s.toCharArray();
+			for (int i = 0; i < liczby.length; i++) {
+				if (Character.isDigit(liczby[i])) {
+					String num = "";
+					while (i < liczby.length && Character.isDigit(liczby[i])) {
+						num += liczby[i++];
+					}
+					l.add(Integer.parseInt(num));
+				}
+			}
+			return l.get(licznik);
+		}
+
+		static String Licz_hosty(List<Integer> liczba_hostow_wymagana, int liczba_sieci_wymagana, float procet, int siec, int i) {
+
+			int licznik = i;
+			int liczba_sieci = liczba_sieci_wymagana;
+			int liczba_hostów = liczba_hostow_wymagana.get(licznik);
+			float procet_wolnych = procet / 100;
+			int adres_sieci = 0;
+			int adres_rozgloszeniowy = 0;
+			int pierwszy = 0;
+			int ostatni = 0;
+			int następna_siec = siec;
+			// String maska = "255.255.255.0";
+
+			if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 2 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 2;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+				
+//				JLabel maska = new JLabel("Maska sieci: 255.255.255.252");
+//				maska.setFont(new Font("Tahoma", Font.PLAIN, 30));
+//				maska.setBounds(113, 150, 316, 58);
+//				panel3.add(maska);
+//				
+//				JLabel adres = new JLabel("Adres sieci: 192.168.1." + adres_sieci);
+//				adres.setFont(new Font("Tahoma", Font.PLAIN, 30));
+//				adres.setBounds(133, 150, 316, 58);
+//				panel3.add(adres);
+//				
+//				JLabel adresy_hostow = new JLabel("Adresy hostów: 192.168.1." + pierwszy + " - " + ostatni);
+//				adresy_hostow.setFont(new Font("Tahoma", Font.PLAIN, 30));
+//				adresy_hostow.setBounds(153, 150, 316, 58);
+//				panel3.add(adresy_hostow);
+//				
+//				JLabel rozgloszeniowy = new JLabel("Adres rozgloszeniowy: 192.168.1." + adres_rozgloszeniowy);
+//				rozgloszeniowy.setFont(new Font("Tahoma", Font.PLAIN, 30));
+//				rozgloszeniowy.setBounds(173, 150, 316, 58);
+//				panel3.add(rozgloszeniowy);
+
+				System.out.println("Maska sieci: 255.255.255.252");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+				
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+			}
+
+			else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 6 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 6;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.248");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			}
+
+			else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 14 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 14;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.240");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+			}
+
+			else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 30 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 30;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.224");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			}
+
+			else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 62 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 62;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.192");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+			}
+
+			else if ((liczba_hostów + (liczba_hostów * procet_wolnych)) <= 126 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 126;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.128");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + procet_wolnych);
+				
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+			}
+
+			else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 254 && liczba_sieci > 0
+					&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+				adres_sieci += następna_siec;
+				pierwszy = adres_sieci + 1;
+				ostatni = adres_sieci + 254;
+				adres_rozgloszeniowy = ostatni + 1;
+				następna_siec = adres_rozgloszeniowy + 1;
+
+				System.out.println("Maska sieci: 255.255.255.0");
+				System.out.println("Adres sieci: " + adres_sieci);
+				System.out.println("Pierwszy adres hosta: " + pierwszy);
+				System.out.println("Ostatni adres hosta: " + ostatni);
+				System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+				System.out.println("Licznik: " + licznik);
+
+				liczba_sieci--;
+
+				System.out.println("liczba sieci: " + liczba_sieci);
+				Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+			}
+			return null;
+
+		}
+		
+		
+		
+
+  
+}
+ 
+
+
