@@ -1,0 +1,223 @@
+package kalkulator_ip;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Architekt {
+	
+	private static Integer pobierzLiczbyZeStringa(String s, int licznik) {
+		List<Integer> l = new ArrayList<Integer>();
+		char[] liczby = s.toCharArray();
+		for (int i = 0; i < liczby.length; i++) {
+			if (Character.isDigit(liczby[i])) {
+				String num = "";
+				while (i < liczby.length && Character.isDigit(liczby[i])) {
+					num += liczby[i++];
+				}
+				l.add(Integer.parseInt(num));
+			}
+		}
+		return l.get(licznik);
+	}
+
+	static String Licz_hosty(List<Integer> liczba_hostow_wymagana, int liczba_sieci_wymagana, float procet, int siec,
+			int i) {
+
+		int licznik = i;
+		int liczba_sieci = liczba_sieci_wymagana;
+		int liczba_hostów = liczba_hostow_wymagana.get(licznik);
+		float procet_wolnych = procet / 100;
+		int adres_sieci = 0;
+		int adres_rozgloszeniowy = 0;
+		int pierwszy = 0;
+		int ostatni = 0;
+		int następna_siec = siec;
+		// String maska = "255.255.255.0";
+
+		if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 2 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 2;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			// JLabel maska = new JLabel("Maska sieci: 255.255.255.252");
+			// maska.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			// maska.setBounds(113, 150, 316, 58);
+			// panel3.add(maska);
+			//
+			// JLabel adres = new JLabel("Adres sieci: 192.168.1." +
+			// adres_sieci);
+			// adres.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			// adres.setBounds(133, 150, 316, 58);
+			// panel3.add(adres);
+			//
+			// JLabel adresy_hostow = new JLabel("Adresy hostów: 192.168.1." +
+			// pierwszy + " - " + ostatni);
+			// adresy_hostow.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			// adresy_hostow.setBounds(153, 150, 316, 58);
+			// panel3.add(adresy_hostow);
+			//
+			// JLabel rozgloszeniowy = new JLabel("Adres rozgloszeniowy:
+			// 192.168.1." + adres_rozgloszeniowy);
+			// rozgloszeniowy.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			// rozgloszeniowy.setBounds(173, 150, 316, 58);
+			// panel3.add(rozgloszeniowy);
+
+			System.out.println("Maska sieci: 255.255.255.252");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+		}
+
+		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 6 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 6;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.248");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+		}
+
+		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 14 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 14;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.240");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+		}
+
+		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 30 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 30;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.224");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+		}
+
+		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 62 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 62;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.192");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+		}
+
+		else if ((liczba_hostów + (liczba_hostów * procet_wolnych)) <= 126 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 126;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.128");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + procet_wolnych);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+		}
+
+		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 254 && liczba_sieci > 0
+				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+
+			adres_sieci += następna_siec;
+			pierwszy = adres_sieci + 1;
+			ostatni = adres_sieci + 254;
+			adres_rozgloszeniowy = ostatni + 1;
+			następna_siec = adres_rozgloszeniowy + 1;
+
+			System.out.println("Maska sieci: 255.255.255.0");
+			System.out.println("Adres sieci: " + adres_sieci);
+			System.out.println("Pierwszy adres hosta: " + pierwszy);
+			System.out.println("Ostatni adres hosta: " + ostatni);
+			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
+			System.out.println("Licznik: " + licznik);
+
+			liczba_sieci--;
+
+			System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+
+		}
+		return null;
+
+	}
+
+}
