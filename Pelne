@@ -51,10 +51,10 @@ public class Pelne {
 			int maska = (int) maskaPodsieci.get(i);
 			if (liczbaHostow >= maska) {
 				liczbaHostow = liczbaHostow - maska;
-				System.out.println("Adres sieci: " + (adres_sieci)+ " Maska: /" + (i - 1) +  " Adres rozgłoszeniowy: "
-				+ (adres_sieci + maska + 2) + " Pierwszy: " + (adres_sieci + 1) + " Ostatni: " + (adres_sieci + maska + 1) 
+				System.out.println("Adres sieci: " + adres_sieci+ " Maska: /" + (i - 1) +  " Adres rozgłoszeniowy: "
+				+ (adres_sieci + maska + 2) + " Pi1erwszy: " + (adres_sieci + 1) + " Ostatni: " + (adres_sieci + maska + 1) 
 				+ " Licba hostów: " + maska);
-				adres_sieci += adres_sieci + maska + 3;
+				adres_sieci += maska + 3;
 				i--;
 			}
 		}
