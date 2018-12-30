@@ -267,6 +267,12 @@ public class Kalkulator extends JPanel {
 	private class PrzyciskListenerObliczPelne implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
+		
+			Pelne p = new Pelne();
+			p.hosty = Integer.parseInt(textField_Liczba_Hostow_Pelne.getText());
+			// p.siec = pobierzLiczbyZeStringa("192.168.1.0");
+			//p.Licz_hosty(p.siec = pobierzLiczbyZeStringa("192.168.1.2"));
+			p.Licz_hosty(p.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText()));
 
 		}
 
