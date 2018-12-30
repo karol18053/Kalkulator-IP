@@ -1,31 +1,91 @@
 package kalkulator_ip;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class Architekt {
-	
-	private static Integer pobierzLiczbyZeStringa(String s, int licznik) {
-		List<Integer> l = new ArrayList<Integer>();
-		char[] liczby = s.toCharArray();
-		for (int i = 0; i < liczby.length; i++) {
-			if (Character.isDigit(liczby[i])) {
-				String num = "";
-				while (i < liczby.length && Character.isDigit(liczby[i])) {
-					num += liczby[i++];
-				}
-				l.add(Integer.parseInt(num));
-			}
-		}
-		return l.get(licznik);
+
+	static List<Integer> liczba_hostow_architekt = new ArrayList<Integer>(100);
+
+	static Object[][] wiersze = new Object[20][20];
+	static int a = 0;
+	static JFrame frame2;
+
+	public static void Wyswietl() {
+
+		frame2 = new JFrame();
+		frame2.setBounds(0, 0, 650, 400);
+		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JPanel panel = new JPanel();
+		frame2.getContentPane().add(panel, BorderLayout.CENTER);
+		frame2.setLocationRelativeTo(null);
+		frame2.setResizable(false);
+		frame2.setVisible(true);
+
+		JLabel lbladres = new JLabel("Pobrany adres: ");
+		lbladres.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lbladres.setBounds(0, 0, 0, 0);
+		panel.add(lbladres);
+
+		JScrollPane scrollPane = new JScrollPane();// tworzenie scrolpanelu dla
+		// tabeli
+		scrollPane.setBounds(0, 0, 0, 0);
+		panel.add(scrollPane);
+		/////////////////////////////////
+
+		// System.out.println(
+		// "Pobrany adres: " + adres.get(0) + "." + adres.get(1) + "." +
+		// adres.get(2) + "." + adres.get(3));
+
+		//////////////////////
+
+		/////////////////////////////
+		DefaultTableModel modelo = new DefaultTableModel();// tworzenie tabeli
+		// do wypisywania
+		// wyników
+		JTable table = new JTable(modelo);
+		///////////////////////////////////
+
+		// Object[][] wiersze = null;
+		Object[][] wiersze = new Object[20][20];
+		int a = 0;
+
+		Licz_hosty(liczba_hostow_architekt, 0, 0, 0);
+		
+		table.setModel(new DefaultTableModel(wiersze, new String[] { "Maska", "Adres sieci", "Pierwszy adres hosta",
+				"Ostatni adres hosta", "Adres rozgłoszeniowy" }));
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(27);// ustawienia
+		// kolumn
+		// tabeli
+		table.getColumnModel().getColumn(4).setPreferredWidth(92);
+		scrollPane.setViewportView(table);
+
 	}
 
-	static String Licz_hosty(List<Integer> liczba_hostow_wymagana, int liczba_sieci_wymagana, float procet, int siec,
-			int i) {
+	public static void Sortuj_liste_hostow() {
+
+		Collections.sort(liczba_hostow_architekt);
+		Collections.reverse(liczba_hostow_architekt);
+
+	}
+
+	static void Licz_hosty(List<Integer> liczba_hostow_wymagana, int procet, int siec, int i) {
 
 		int licznik = i;
-		int liczba_sieci = liczba_sieci_wymagana;
-		int liczba_hostów = liczba_hostow_wymagana.get(licznik);
+		int liczba_sieci = liczba_hostow_wymagana.size();
+		int liczba_hostow = (int) liczba_hostow_architekt.get(i);
 		float procet_wolnych = procet / 100;
 		int adres_sieci = 0;
 		int adres_rozgloszeniowy = 0;
@@ -34,8 +94,7 @@ public class Architekt {
 		int następna_siec = siec;
 		// String maska = "255.255.255.0";
 
-		if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 2 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 2 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -43,46 +102,23 @@ public class Architekt {
 			adres_rozgloszeniowy = ostatni + 1;
 			następna_siec = adres_rozgloszeniowy + 1;
 
-			// JLabel maska = new JLabel("Maska sieci: 255.255.255.252");
-			// maska.setFont(new Font("Tahoma", Font.PLAIN, 30));
-			// maska.setBounds(113, 150, 316, 58);
-			// panel3.add(maska);
-			//
-			// JLabel adres = new JLabel("Adres sieci: 192.168.1." +
-			// adres_sieci);
-			// adres.setFont(new Font("Tahoma", Font.PLAIN, 30));
-			// adres.setBounds(133, 150, 316, 58);
-			// panel3.add(adres);
-			//
-			// JLabel adresy_hostow = new JLabel("Adresy hostów: 192.168.1." +
-			// pierwszy + " - " + ostatni);
-			// adresy_hostow.setFont(new Font("Tahoma", Font.PLAIN, 30));
-			// adresy_hostow.setBounds(153, 150, 316, 58);
-			// panel3.add(adresy_hostow);
-			//
-			// JLabel rozgloszeniowy = new JLabel("Adres rozgloszeniowy:
-			// 192.168.1." + adres_rozgloszeniowy);
-			// rozgloszeniowy.setFont(new Font("Tahoma", Font.PLAIN, 30));
-			// rozgloszeniowy.setBounds(173, 150, 316, 58);
-			// panel3.add(rozgloszeniowy);
-
 			System.out.println("Maska sieci: 255.255.255.252");
 			System.out.println("Adres sieci: " + adres_sieci);
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+
+			wiersze[a++] = new Object[] { "255.255.255.252", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 
 		}
 
-		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 6 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 6 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -95,16 +131,18 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+
+			wiersze[a++] = new Object[] { "255.255.255.248", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
+
 		}
 
-		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 14 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 14 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -117,17 +155,18 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+
+			wiersze[a++] = new Object[] { "255.255.255.240", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 
 		}
 
-		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 30 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 30 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -140,16 +179,17 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+
+			wiersze[a++] = new Object[] { "255.255.255.224", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 		}
 
-		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 62 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 62 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -162,17 +202,18 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+
+			wiersze[a++] = new Object[] { "255.255.255.192", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 
 		}
 
-		else if ((liczba_hostów + (liczba_hostów * procet_wolnych)) <= 126 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 126 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -185,17 +226,17 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + procet_wolnych);
+			// System.out.println("Licznik: " + licznik);
+			wiersze[a++] = new Object[] { "255.255.255.128", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 
 		}
 
-		else if ((liczba_hostów + liczba_hostów * procet_wolnych) <= 254 && liczba_sieci > 0
-				&& liczba_hostow_wymagana.get(licznik) != null && następna_siec < 255) {
+		else if ((liczba_hostow + liczba_hostow * procet_wolnych) <= 254 && następna_siec < 255 && liczba_sieci >= 0) {
 
 			adres_sieci += następna_siec;
 			pierwszy = adres_sieci + 1;
@@ -208,15 +249,15 @@ public class Architekt {
 			System.out.println("Pierwszy adres hosta: " + pierwszy);
 			System.out.println("Ostatni adres hosta: " + ostatni);
 			System.out.println("Adres rozgłoszeniowy: " + adres_rozgloszeniowy);
-			System.out.println("Licznik: " + licznik);
+			// System.out.println("Licznik: " + licznik);
+			wiersze[a++] = new Object[] { "255.255.255.0", adres_sieci, pierwszy, ostatni, adres_rozgloszeniowy };
 
 			liczba_sieci--;
 
-			System.out.println("liczba sieci: " + liczba_sieci);
-			Licz_hosty(liczba_hostow_wymagana, liczba_sieci, procet, następna_siec, ++licznik);
+			// System.out.println("liczba sieci: " + liczba_sieci);
+			Licz_hosty(liczba_hostow_wymagana, procet, następna_siec, ++licznik);
 
 		}
-		return null;
 
 	}
 
