@@ -28,7 +28,7 @@ public class Kalkulator extends JPanel {
 	private JComponent panel3 = makePanel();
 	public static JFrame frame = new JFrame("Kalkulator IP by: K. Cie\u017C & B. Cholewa");
 	public Color kolor = Color.GRAY;
-	private JFrame frame2;
+
 	// zakładka 1
 	private static JTextField textField_Adres_Sieci_Pelne;
 	private static JTextField textField_Liczba_Hostow_Pelne;
@@ -214,7 +214,7 @@ public class Kalkulator extends JPanel {
 			Pelne p = new Pelne();
 			p.hosty = Integer.parseInt(textField_Liczba_Hostow_Pelne.getText());
 			// p.siec = pobierzLiczbyZeStringa("192.168.1.0");
-			//p.Licz_hosty(p.siec = pobierzLiczbyZeStringa("192.168.1.2"));
+			// p.Licz_hosty(p.siec = pobierzLiczbyZeStringa("192.168.1.2"));
 			p.Licz_hosty(p.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText()));
 
 		}
@@ -228,27 +228,36 @@ public class Kalkulator extends JPanel {
 			int hosty = Integer.parseInt(textField_Liczba_Hostow1.getText());
 
 			Architekt.liczba_hostow_architekt.add(hosty);
+
+			// Architektv2.liczba_hostow_architekt.add(hosty);
+			// System.out.println(Architektv2.liczba_hostow_architekt);
 		}
 	}
 
 	private class PrzyciskListenerObliczArchitekt implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			
-			Architekt window = new Architekt();
-			window.initialize();
-			window.frame2.setVisible(true);
 
-			float procet = Integer.parseInt(textField_Procent_Wolnych.getText());
+			int procet = Integer.parseInt(textField_Procent_Wolnych.getText());
 
-			window.Sortuj_liste_hostow();
-			List<Integer> adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
+			Architekt.Sortuj_liste_hostow();
+			// List<Integer> adres =
+			// pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
 
-			window.Licz(Architekt.liczba_hostow_architekt, adres, procet, 0, 0);
-			
-			
+			// try{
+			// Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet,
+			// 0, 0);
+			// }
+			// catch(IndexOutOfBoundsException e){
+			//
+			// }
 
-			
+			try {
+				// Architekt_wynik.initialize();
+				Architekt.Wyswietl();
+			} catch (IndexOutOfBoundsException e) {
+
+			}
 
 		}
 	}
@@ -259,16 +268,14 @@ public class Kalkulator extends JPanel {
 
 			int hosty = Integer.parseInt(textField_Liczba_Hostow1.getText());
 			int numer = Integer.parseInt(textField_Numer_Podsieci.getText()) - 1;
-			float procet = Integer.parseInt(textField_Procent_Wolnych.getText());
-			Architekt window = new Architekt();
-			window.liczba_hostow_architekt.set(numer, hosty);
+			int procet = Integer.parseInt(textField_Procent_Wolnych.getText());
 
-			window.Sortuj_liste_hostow();
-			List<Integer> adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
-			
-			//Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, adres, procet, 0, 0);
-			window.Licz(Architekt.liczba_hostow_architekt, adres, procet, 0, 0);
-			
+			Architekt.liczba_hostow_architekt.set(numer, hosty);
+
+			Architekt.Sortuj_liste_hostow();
+
+			Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet, 0, 0);
+
 		}
 	}
 
