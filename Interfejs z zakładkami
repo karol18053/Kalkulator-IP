@@ -241,20 +241,12 @@ public class Kalkulator extends JPanel {
 			int procet = Integer.parseInt(textField_Procent_Wolnych.getText());
 
 			Architekt.Sortuj_liste_hostow();
-			// List<Integer> adres =
-			// pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
-
-			// try{
-			// Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet,
-			// 0, 0);
-			// }
-			// catch(IndexOutOfBoundsException e){
-			//
-			// }
+			Architekt.adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
 
 			try {
 				// Architekt_wynik.initialize();
-				Architekt.Wyswietl();
+				Architekt.initialize1();
+				Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet, 0, 0);
 			} catch (IndexOutOfBoundsException e) {
 
 			}
@@ -273,8 +265,23 @@ public class Kalkulator extends JPanel {
 			Architekt.liczba_hostow_architekt.set(numer, hosty);
 
 			Architekt.Sortuj_liste_hostow();
+			Architekt.adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
 
-			Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet, 0, 0);
+			Architekt.frame2.setVisible(false);
+
+			try {
+				Architekt.initialize1();
+
+				JLabel lbladres = new JLabel("Po zmaianach:");
+				lbladres.setFont(new Font("Tahoma", Font.BOLD, 18));
+				lbladres.setBounds(20, Architekt.y + 20, 250, 22);
+				Architekt.panel.add(lbladres);
+				Architekt.y += 40;
+
+				Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet, 0, 0);
+			} catch (IndexOutOfBoundsException e) {
+
+			}
 
 		}
 	}
