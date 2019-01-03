@@ -204,17 +204,8 @@ public class Kalkulator extends JPanel {
 
 		public void actionPerformed(ActionEvent event) {
 
-			// siec =
-			// pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText());
-			// maska =
-			// pobierzLiczbyZeStringa(textField_Maska_Sieci_Pelne.getText());
-
-			// Pelne.Licz_hosty(Pelne.siec,liczba_hostow);
-
 			Pelne p = new Pelne();
 			p.hosty = Integer.parseInt(textField_Liczba_Hostow_Pelne.getText());
-			// p.siec = pobierzLiczbyZeStringa("192.168.1.0");
-			// p.Licz_hosty(p.siec = pobierzLiczbyZeStringa("192.168.1.2"));
 			p.Licz_hosty(p.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText()));
 
 		}
@@ -228,9 +219,6 @@ public class Kalkulator extends JPanel {
 			int hosty = Integer.parseInt(textField_Liczba_Hostow1.getText());
 
 			Architekt.liczba_hostow_architekt.add(hosty);
-
-			// Architektv2.liczba_hostow_architekt.add(hosty);
-			// System.out.println(Architektv2.liczba_hostow_architekt);
 		}
 	}
 
