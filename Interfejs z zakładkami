@@ -22,7 +22,7 @@ public class Kalkulator extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	WynikGUI wynikGUI = new WynikGUI();
 	private JComponent panel1 = makePanel();
 	private JComponent panel2 = makePanel();
 	private JComponent panel3 = makePanel();
@@ -32,8 +32,12 @@ public class Kalkulator extends JPanel {
 	// zakładka 1
 	private static JTextField textField_Adres_Sieci_Pelne;
 	private static JTextField textField_Liczba_Hostow_Pelne;
+	JLabel lblWynik_Wolne;
 	// zakładka 2
-
+	private static JTextField textField_Adres_Sieci_Wolne;
+	private static JTextField textField_Liczba_Hostow_Wolne;
+	private static JTextField textField_Liczba_Procent_Wolne;
+	// private static JTextPane textPane;
 	// zakładka3
 	private static JTextField textField_Adres_Sieci;
 	private static JTextField textField_Numer_Podsieci;
@@ -46,7 +50,7 @@ public class Kalkulator extends JPanel {
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 
-		panel1.setPreferredSize(new Dimension(400, 300));// zakładka 1
+		panel1.setPreferredSize(new Dimension(500, 300));// zakładka 1
 		panel1.setBackground(kolor);
 		tabbedPane.addTab("1.Podejście z pełnymi sieciami", null, panel1,
 				"Sieci są możliwie pełne, nie ma wolnych adersów");
@@ -58,8 +62,8 @@ public class Kalkulator extends JPanel {
 		lblKalkulatorIp_pelne.setBounds(10, 11, 250, 49);
 		panel1.add(lblKalkulatorIp_pelne);
 
-		JLabel lblPdajAdresSieci_pelne = new JLabel("Pdaj adres sieci: ");
-		lblPdajAdresSieci_pelne.setBounds(10, 103, 102, 35);
+		JLabel lblPdajAdresSieci_pelne = new JLabel("Podaj adres sieci: ");
+		lblPdajAdresSieci_pelne.setBounds(10, 103, 110, 35);
 		panel1.add(lblPdajAdresSieci_pelne);
 
 		JLabel lblLiczbaHostw_pelne = new JLabel("Liczba host\u00F3w:");
@@ -83,17 +87,54 @@ public class Kalkulator extends JPanel {
 		textField_Liczba_Hostow_Pelne.setColumns(10);
 
 		///////////////////////////////
-		panel2.setPreferredSize(new Dimension(400, 300));// zakładka 1
+		panel2.setPreferredSize(new Dimension(500, 300));// zakładka 2
 		panel2.setBackground(kolor);
 		tabbedPane.addTab("2.Podejście z wolnymi adresami", null, panel2, "Zostają wolne adresy w wyliczonej sieci ");
 		panel2.setLayout(null);
 
 		///////////////////////////////
+		//// Zakładka 2 Początek
+		JLabel lblKalkulatorIp_Wolne = new JLabel("Kalkulator IP - wolne hosty");
+		lblKalkulatorIp_Wolne.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblKalkulatorIp_Wolne.setBounds(10, 11, 250, 49);
+		panel2.add(lblKalkulatorIp_Wolne);
 
-		// Twój kod
+		JLabel lblPdajAdresSieci_Wolne = new JLabel("Podaj adres sieci: ");
+		lblPdajAdresSieci_Wolne.setBounds(10, 103, 110, 35);
+		panel2.add(lblPdajAdresSieci_Wolne);
+
+		JLabel lblLiczbaHostw_Wolne = new JLabel("Liczba hostów:");
+		lblLiczbaHostw_Wolne.setBounds(10, 136, 102, 28);
+		panel2.add(lblLiczbaHostw_Wolne);
+
+		JLabel lblLiczbaWolnych_Wolne = new JLabel("Procent wolnych hostów:");
+		lblLiczbaWolnych_Wolne.setBounds(10, 169, 148, 28);
+		panel2.add(lblLiczbaWolnych_Wolne);
+
+		JButton btnOblicz_Wolne = new JButton("Oblicz");
+		btnOblicz_Wolne.setBounds(10, 220, 89, 23);
+		panel2.add(btnOblicz_Wolne);
+		btnOblicz_Wolne.addActionListener(new PrzyciskListenerObliczWolne());
+
+		textField_Adres_Sieci_Wolne = new JTextField();
+		textField_Adres_Sieci_Wolne.setBounds(155, 109, 136, 20);
+		panel2.add(textField_Adres_Sieci_Wolne);
+		textField_Adres_Sieci_Wolne.setColumns(10);
+
+		textField_Liczba_Hostow_Wolne = new JTextField();
+		textField_Liczba_Hostow_Wolne.setBounds(155, 140, 86, 20);
+		panel2.add(textField_Liczba_Hostow_Wolne);
+		textField_Liczba_Hostow_Wolne.setColumns(10);
+
+		textField_Liczba_Procent_Wolne = new JTextField();
+		textField_Liczba_Procent_Wolne.setBounds(155, 171, 86, 20);
+		panel2.add(textField_Liczba_Procent_Wolne);
+		textField_Liczba_Procent_Wolne.setColumns(10);
+
+		// Zakładka 2 koniec
 
 		///////////////////////////////
-		panel3.setPreferredSize(new Dimension(400, 300));// zakładka 1
+		panel3.setPreferredSize(new Dimension(500, 300));// zakładka 3
 		panel3.setBackground(kolor);
 		tabbedPane.addTab("3.Podejście architekta", null, panel3, "Projektowanie sieci");
 		panel3.setLayout(null);
@@ -105,8 +146,8 @@ public class Kalkulator extends JPanel {
 		lblKalkulatorIp.setBounds(10, 11, 350, 49);
 		panel3.add(lblKalkulatorIp);
 
-		JLabel lblPdajAdresSieci = new JLabel("Pdaj adres sieci: ");
-		lblPdajAdresSieci.setBounds(10, 103, 102, 35);
+		JLabel lblPdajAdresSieci = new JLabel("Podaj adres sieci: ");
+		lblPdajAdresSieci.setBounds(10, 103, 110, 35);
 		panel3.add(lblPdajAdresSieci);
 
 		JLabel lblLiczbaPodsieci = new JLabel("Numer podsieci do zmiany:");
@@ -127,12 +168,12 @@ public class Kalkulator extends JPanel {
 		btnOblicz.addActionListener(new PrzyciskListenerObliczArchitekt());
 
 		JButton btnDodaj = new JButton("Dodaj hosty");
-		btnDodaj.setBounds(150, 140, 150, 23);
+		btnDodaj.setBounds(150, 140, 100, 23);
 		panel3.add(btnDodaj);
 		btnDodaj.addActionListener(new PrzyciskListenerDodajArchitekt());
 
 		JButton btnZmien = new JButton("Zmień");
-		btnZmien.setBounds(265, 200, 80, 23);
+		btnZmien.setBounds(170, 240, 80, 23);
 		panel3.add(btnZmien);
 		btnZmien.addActionListener(new PrzyciskListenerZmienArchitekt());
 		// return btnOblicz;
@@ -143,7 +184,7 @@ public class Kalkulator extends JPanel {
 		textField_Adres_Sieci.setColumns(10);
 
 		textField_Numer_Podsieci = new JTextField();
-		textField_Numer_Podsieci.setBounds(170, 202, 86, 20);
+		textField_Numer_Podsieci.setBounds(170, 202, 80, 20);
 		panel3.add(textField_Numer_Podsieci);
 		textField_Numer_Podsieci.setColumns(10);
 
@@ -153,7 +194,7 @@ public class Kalkulator extends JPanel {
 		textField_Liczba_Hostow1.setColumns(10);
 
 		textField_Procent_Wolnych = new JTextField();
-		textField_Procent_Wolnych.setBounds(170, 172, 75, 20);
+		textField_Procent_Wolnych.setBounds(170, 172, 80, 20);
 		panel3.add(textField_Procent_Wolnych);
 		textField_Procent_Wolnych.setColumns(10);
 
@@ -186,7 +227,7 @@ public class Kalkulator extends JPanel {
 		// JFrame.setDefaultLookAndFeelDecorated(true);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(0, 0, 400, 300);
+		frame.setBounds(0, 0, 500, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 
@@ -204,10 +245,41 @@ public class Kalkulator extends JPanel {
 
 		public void actionPerformed(ActionEvent event) {
 
-			Pelne p = new Pelne();
-			p.hosty = Integer.parseInt(textField_Liczba_Hostow_Pelne.getText());
-			p.Licz_hosty(p.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText()));
+			try {
+				Pelne p = new Pelne();
+				p.hosty = Integer.parseInt(textField_Liczba_Hostow_Pelne.getText());
+				p.Licz_hosty(p.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Pelne.getText()));
+				wynikGUI.initialize();
+				for (int i = 0; i <= p.wynik.size() - 1; i++) {
+					wynikGUI.textArea.append(p.wynik.get(i) + "\n");
+				}
+			} catch (IndexOutOfBoundsException e) {
 
+			}
+
+		}
+
+	}
+
+	// Zakładka 2 Przycisk Oblicz
+	private class PrzyciskListenerObliczWolne implements ActionListener {
+
+		public void actionPerformed(ActionEvent event) {
+
+			try {
+				int procent = Integer.parseInt(textField_Liczba_Procent_Wolne.getText());
+				int liczbaHostow = Integer.parseInt(textField_Liczba_Hostow_Wolne.getText());
+				int liczbaCalkowita = (liczbaHostow * (100 + procent)) / 100;
+				Wolne wolne = new Wolne();
+				wolne.hosty = liczbaCalkowita;
+				wolne.Licz_hosty(wolne.siec = pobierzLiczbyZeStringa(textField_Adres_Sieci_Wolne.getText()));
+				wynikGUI.initialize();
+				for (int i = 0; i <= wolne.wynik.size() - 1; i++) {
+					wynikGUI.textArea.append(wolne.wynik.get(i) + "\n");
+				}
+			} catch (IndexOutOfBoundsException e) {
+
+			}
 		}
 
 	}
@@ -217,8 +289,18 @@ public class Kalkulator extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 
 			int hosty = Integer.parseInt(textField_Liczba_Hostow1.getText());
-
+			// wynikGUI.frame.setVisible(false);
 			Architekt.liczba_hostow_architekt.add(hosty);
+
+			Architekt.sieci.add(Integer.toString(hosty));
+
+			wynikGUI.initialize();
+			wynikGUI.frame.setBounds(139, 210, 300, 300);
+			Architekt.Sortuj_liste_sieci();
+			for (int i = 0; i <= Architekt.sieci.size() - 1; i++) {
+
+				wynikGUI.textArea.append("Sieć " + (i + 1) + " Liczba hostów: " + Architekt.sieci.get(i) + "\n");
+			}
 		}
 	}
 
@@ -232,7 +314,7 @@ public class Kalkulator extends JPanel {
 			Architekt.adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
 
 			try {
-				// Architekt_wynik.initialize();
+
 				Architekt.initialize1();
 				Architekt.Licz_hosty(Architekt.liczba_hostow_architekt, procet, 0, 0);
 			} catch (IndexOutOfBoundsException e) {
@@ -256,6 +338,16 @@ public class Kalkulator extends JPanel {
 			Architekt.adres = pobierzLiczbyZeStringa(textField_Adres_Sieci.getText());
 
 			Architekt.frame2.setVisible(false);
+
+			Architekt.sieci.set(numer, Integer.toString(hosty));
+
+			wynikGUI.initialize();
+			wynikGUI.frame.setBounds(139, 210, 300, 300);
+			Architekt.Sortuj_liste_sieci();
+			for (int i = 0; i <= Architekt.sieci.size() - 1; i++) {
+
+				wynikGUI.textArea.append("Sieć " + (i +1)  + " Liczba hostów: " + Architekt.sieci.get(i) + "\n");
+			}
 
 			try {
 				Architekt.initialize1();
