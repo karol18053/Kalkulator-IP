@@ -9,10 +9,10 @@ public class Pelne {
 	public ArrayList<Integer> maskaPodsieci = new ArrayList<Integer>();
 
 	public int hosty;
+	public List<String> wynik = new ArrayList<>();
 
 	public void Licz_hosty(List<Integer> siec) {
 
-		// ArrayList<Integer> maskaPodsieci = new ArrayList<Integer>();
 		maskaPodsieci.add(0);
 		maskaPodsieci.add(0);
 		maskaPodsieci.add(0);
@@ -48,38 +48,25 @@ public class Pelne {
 		int liczbaHostow = hosty;
 		int adres_sieci = 0;
 
-		// if (hosty <= 255) {
-
 		adres_sieci = sprawdzAdres(siec, hosty);
-		//System.out.println(adres_sieci);
 
 		for (int i = 24; i < 31; i++) {
-			
+
 			int maska = (int) maskaPodsieci.get(i);
-//			if (liczbaHostow >= maska && adres_sieci <= 255 && liczbaHostow > 255) {
-//				System.out.println(liczbaHostow);
-//				
-//				liczbaHostow = liczbaHostow - maska;
-//				System.out.println("Adres sieci: " + adres_sieci + " Maska: /" + (i - 1) + " Adres rozgłoszeniowy: "
-//						+ (adres_sieci + maska + 2) + " Pi1erwszy: " + (adres_sieci + 1) + " Ostatni: "
-//						+ (adres_sieci + maska) + " Liczba hostów: " + maska);
-//				adres_sieci += maska + 3;
-//				i--;
-//			}
 
 			if (liczbaHostow >= maska && adres_sieci <= 255 && liczbaHostow <= 255) {
-				//System.out.println(liczbaHostow);
-				
+
 				liczbaHostow = liczbaHostow - maska;
-				System.out.println("Adres sieci: " + adres_sieci + " Maska: /" + (i - 1) + " Adres rozgłoszeniowy: "
-						+ (adres_sieci + maska + 2) + " Pi1erwszy: " + (adres_sieci + 1) + " Ostatni: "
+
+				wynik.add("Adres sieci: " + adres_sieci + " Maska: /" + i + " Adres rozgłoszeniowy: "
+						+ (adres_sieci + maska + 2) + " Pierwszy: " + (adres_sieci + 1) + " Ostatni: "
 						+ (adres_sieci + maska) + " Liczba hostów: " + maska);
+
 				adres_sieci += maska + 3;
 				i--;
 
 			}
 		}
-
 
 	}
 
@@ -132,7 +119,7 @@ public class Pelne {
 
 				if (liczbaHostow >= maska) {
 					liczbaHostow = liczbaHostow - maska;
-					// System.out.println("Adres sieci: " + maska + 3);
+
 					adres = maska + 3;
 					i--;
 					return adres;
@@ -141,27 +128,6 @@ public class Pelne {
 			}
 
 		}
-
-//		if (siec.get(2) == 0 && hosty <= 65533) {
-//			adres = 0;
-//			return adres;
-//		}
-//
-//		if (siec.get(2) > 0 && hosty <= 65533) {
-//			for (int i = 16; i < 31; i++) {
-//				int maska = (int) maskaPodsieci.get(i);
-//
-//				if (liczbaHostow >= maska) {
-//					liczbaHostow = liczbaHostow - maska;
-//					// System.out.println("Adres sieci: " + maska + 3);
-//					adres = maska + 3;
-//					i--;
-//					return adres;
-//				}
-//
-//			}
-//
-//		}
 
 		return adres;
 	}
